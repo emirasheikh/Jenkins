@@ -27,16 +27,14 @@ Selenium
         
         stage('Security Scan') {
             steps {
-                // Perform a security scan using a tool (e.g., OWASP 
-Dependency-Check)
+                // Perform a security scan using a tool (e.g., OWASP Dependency-Check)
                 sh 'dependency-check'
             }
         }
         
         stage('Deploy to Staging') {
             steps {
-                // Deploy the application to a staging server (e.g., AWS 
-EC2 instance)
+                // Deploy the application to a staging server (e.g., AWS EC2 instance)
                 sh 'aws deploy-to-staging'
             }
         }
@@ -50,8 +48,7 @@ EC2 instance)
         
         stage('Deploy to Production') {
             steps {
-                // Deploy the application to a production server (e.g., 
-AWS EC2 instance)
+                // Deploy the application to a production server (e.g., AWS EC2 instance)
                 sh 'aws deploy-to-production'
             }
         }
