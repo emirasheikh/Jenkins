@@ -1,29 +1,29 @@
 pipeline{
     agent any
     environment{
-        DIRECTORYPATH = "DIRECTORY_PATH"
+        DIRECTORYPATH = "/Users/emirasheikh/Downloads/Git223/JenkinsFile"
         TESTINGENVIRONMENT = "TESTING_ENVIRONMENT"
-        PRODUCTIONENVIRONMENT = "Kaushik"
+        PRODUCTIONENVIRONMENT = "Emira"
     }
     stages{
         stage('Build'){
             steps{
                 echo "fetch the source code from the ${DIRECTORYPATH}"
                 echo "compile the code and generate any necessary artifacts"
-                echo "The code is build usint the built automation tool named John"
+                echo "The code is built using the built automation tool named Emira"
             }
         }
         stage(' Unit and integration Tests'){
             steps{
                 echo "unit tests"
                 echo "integration test"
-                echo "john used the automation tool"
+                echo "Emira used the automation tool"
             }
             post{
                 success{
                     mail to: "emirask33@gmail.com",
-                    subject: "test status email",
-                    body: "test is completed"
+                    subject: "Test Status E-mail",
+                    body: "The test has been completed"
                 }
             }
         }
