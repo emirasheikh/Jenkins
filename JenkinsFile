@@ -1,0 +1,76 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Build') {
+            steps {
+                // Build the code using Maven
+                sh 'mvn clean package'
+            }
+        }
+        
+        stage('Unit and Integration Tests') {
+            steps {
+                // Run unit tests using JUnit and integration tests using 
+Selenium
+                sh 'mvn test'
+                sh 'selenium-test-runner'
+            }
+        }
+        
+        stage('Code Analysis') {
+            steps {
+                // Integrate a code analysis tool (e.g., SonarQube)
+                sh 'sonar-scanner'
+            }
+        }
+        
+        stage('Security Scan') {
+            steps {
+                // Perform a security scan using a tool (e.g., OWASP 
+Dependency-Check)
+                sh 'dependency-check'
+            }
+        }
+        
+        stage('Deploy to Staging') {
+            steps {
+                // Deploy the application to a staging server (e.g., AWS 
+EC2 instance)
+                sh 'aws deploy-to-staging'
+            }
+        }
+        
+        stage('Integration Tests on Staging') {
+            steps {
+                // Run integration tests on the staging environment
+                sh 'staging-integration-tests'
+            }
+        }
+        
+        stage('Deploy to Production') {
+            steps {
+                // Deploy the application to a production server (e.g., 
+AWS EC2 instance)
+                sh 'aws deploy-to-production'
+            }
+        }
+    }
+    
+    post {
+        success {
+            // Send success notification email with logs as attachment
+            emailext body: "Pipeline execution completed successfully.",
+                     subject: "Pipeline Success",
+                     to: "emirask33@gmail.com",
+                     attachmentsPattern: '**/*'
+        }
+        failure {
+            // Send failure notification email with logs as attachment
+            emailext body: "Pipeline execution failed.",
+                     subject: "Pipeline Failure",
+                     to: "emirask33@gmail.com",
+                     attachmentsPattern: '**/*'
+        }
+    }
+}
